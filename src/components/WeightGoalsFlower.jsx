@@ -20,47 +20,53 @@ function WeightGoalsFlower() {
       </div>
 
       <div className="flex items-center justify-between gap-6">
-        {/* Left side textual stats */}
+        {/* Left stats box with gradient fill and gradient border */}
         <div className="flex-1 max-w-xs">
-          <div className="rounded-2xl p-4 bg-pink-50 relative border border-transparent" style={{
-            background: 'linear-gradient(0deg, rgba(255,240,246,1) 0%, rgba(255,240,246,0.7) 100%)',
-            borderImage: 'linear-gradient(90deg, #ff9ad3, #b292ff) 1'
-          }}>
+          <div
+            className="relative rounded-2xl p-4"
+            style={{
+              background: 'linear-gradient(0deg, rgba(255,240,246,1) 0%, rgba(255,240,246,1) 100%)',
+              border: '1px solid transparent',
+              borderImage: 'linear-gradient(90deg, #ff9ad3, #b292ff) 1',
+              boxShadow: '0 18px 50px rgba(17,24,39,0.08)'
+            }}
+          >
             <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-violet-600 text-white text-xs flex items-center justify-center shadow-lg">&</div>
             <div className="text-slate-800 text-3xl font-bold">-3 kg</div>
             <div className="text-slate-500 text-xs mt-1">This week</div>
           </div>
         </div>
 
-        {/* Right side radial flower */}
+        {/* Radial flower visualization */}
         <div className="flex-1 flex items-center justify-center">
-          <svg width="160" height="160" viewBox="-80 -80 160 160" className="overflow-visible">
+          <svg width="200" height="200" viewBox="-100 -100 200 200" className="overflow-visible">
             <defs>
               <linearGradient id="pink" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor={pinkGrad[0]} />
-                <stop offset="100%" stopColor={pinkGrad[1]} />
+                <stop offset="0%" stopColor={pinkGrad[0]} stopOpacity="0.9" />
+                <stop offset="100%" stopColor={pinkGrad[1]} stopOpacity="0.7" />
               </linearGradient>
               <linearGradient id="lav" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor={lavGrad[0]} />
-                <stop offset="100%" stopColor={lavGrad[1]} />
+                <stop offset="0%" stopColor={lavGrad[0]} stopOpacity="0.9" />
+                <stop offset="100%" stopColor={lavGrad[1]} stopOpacity="0.7" />
               </linearGradient>
             </defs>
 
-            {/* Faint background wedges to represent unmet goals */}
+            {/* Background petals (unfilled goals) */}
             {Array.from({ length: petals }).map((_, i) => (
-              <Petal key={`f-${i}`} r={50} rotation={(360 / petals) * i} fill="#f7f7fb" opacity={0.6} />
+              <Petal key={`f-${i}`} r={58} rotation={(360 / petals) * i} fill="#f7f7fb" opacity={0.8} />
             ))}
 
-            {/* Overlapping translucent petals */}
+            {/* Pink layer */}
             {Array.from({ length: petals }).map((_, i) => (
-              <Petal key={`p-${i}`} r={70} rotation={(360 / petals) * i} fill="url(#pink)" opacity={0.6} />
+              <Petal key={`p-${i}`} r={78} rotation={(360 / petals) * i} fill="url(#pink)" opacity={0.7} />
             ))}
+            {/* Lavender layer with slight offset to create the flower overlap */}
             {Array.from({ length: petals }).map((_, i) => (
-              <Petal key={`l-${i}`} r={55} rotation={(360 / petals) * i + 12} fill="url(#lav)" opacity={0.6} />
+              <Petal key={`l-${i}`} r={64} rotation={(360 / petals) * i + 12} fill="url(#lav)" opacity={0.7} />
             ))}
 
-            {/* Center white circle and tiny dark purple dot */}
-            <circle cx="0" cy="0" r="10" fill="#fff" />
+            {/* Center white circle and tiny dark-purple dot */}
+            <circle cx="0" cy="0" r="12" fill="#fff" />
             <circle cx="0" cy="0" r="3" fill="#4b1d95" />
           </svg>
         </div>
