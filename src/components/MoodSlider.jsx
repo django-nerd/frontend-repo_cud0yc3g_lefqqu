@@ -1,14 +1,10 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 
-const marks = [
-  { label: 'Bad' },
-  { label: 'Okay' },
-  { label: 'Good' },
-  { label: 'Great' },
-]
+const marks = ['Bad', 'Okay', 'Good', 'Great']
 
 function MoodSlider() {
-  const [value, setValue] = useState(2) // Good
+  const [value, setValue] = useState(2) // Good default
+  const positionPct = useMemo(() => (value / (marks.length - 1)) * 100, [value])
 
   return (
     <div className="bg-white rounded-3xl p-6 md:p-8 shadow-[0_20px_60px_rgba(17,24,39,0.08)]">
@@ -17,29 +13,39 @@ function MoodSlider() {
         <span className="text-slate-400 text-sm">Today</span>
       </div>
 
-      <div className="px-2 md:px-4">
+      <div className="flex justify-end mb-3">
+        <div className="grid grid-cols-3 gap-6 text-xs text-slate-500">
+          <span>Bad</span>
+          <span className="text-center">Good</span>
+          <span>Great</span>
+        </div>
+      </div>
+
+      <div className="px-1">
         {/* Track */}
         <div className="relative h-16 flex items-center">
-          <div className="absolute inset-x-0 mx-auto h-6 rounded-full bg-gradient-to-r from-sky-400 via-fuchsia-400 to-pink-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_20px_40px_rgba(236,72,153,0.25)]" />
+          <div className="absolute inset-x-0 mx-auto h-10 rounded-full shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_20px_40px_rgba(236,72,153,0.25)]" style={{
+            background: 'linear-gradient(90deg, #93C5FD 0%, #C4B5FD 50%, #FB7185 100%)'
+          }} />
 
-          {/* Handle */}
+          {/* Handle - floating capsule */}
           <div
-            className="relative z-10 w-28 h-10 rounded-full bg-white shadow-[0_12px_30px_rgba(59,130,246,0.35)] border border-white/60 flex items-center justify-center select-none"
-            style={{ transform: `translateX(${(value / (marks.length - 1)) * 100}%)` }}
+            className="relative z-10 w-24 h-12 rounded-full border border-white/90 bg-gradient-to-b from-white to-pink-50 shadow-[0_14px_40px_rgba(236,72,153,0.35)] flex items-center justify-center select-none transition-transform"
+            style={{ transform: `translateX(${positionPct}%)` }}
           >
-            <span className="text-slate-700 text-sm font-medium">{marks[value].label}</span>
+            <div className="w-20 h-6 rounded-full bg-pink-400/70" />
           </div>
         </div>
 
-        {/* Marks */}
+        {/* Interactive marks */}
         <div className="relative mt-4 grid grid-cols-4 text-xs text-slate-500">
           {marks.map((m, i) => (
             <button
-              key={m.label}
+              key={m}
               onClick={() => setValue(i)}
-              className={`text-center transition-colors ${i === value ? 'text-slate-900 font-medium' : ''}`}
+              className={`text-center transition-colors px-2 py-1 rounded-full ${i === value ? 'text-slate-900 font-medium bg-slate-50' : ''}`}
             >
-              {m.label}
+              {m}
             </button>
           ))}
         </div>

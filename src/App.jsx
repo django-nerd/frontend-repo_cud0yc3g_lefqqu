@@ -1,22 +1,22 @@
 import HeroSpline from './components/HeroSpline'
 import FoodBalanceChart from './components/FoodBalanceChart'
 import WeightGoalsFlower from './components/WeightGoalsFlower'
-import MoodSlider from './components/MoodSlider'
+import TrainingTracker from './components/TrainingTracker'
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero with Spline cover */}
+    <div className="min-h-screen bg-white font-[ui-sans-serif,system-ui,Inter,Geist,Manrope]">
+      {/* Hero with Spline cover and header mood widget */}
       <HeroSpline />
 
       {/* Dashboard content */}
-      <main className="max-w-7xl mx-auto px-6 md:px-10 -mt-16 md:-mt-24 relative z-10">
+      <main className="max-w-7xl mx-auto px-6 md:px-10 -mt-12 md:-mt-20 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           <div className="lg:col-span-2">
             <FoodBalanceChart />
           </div>
           <div>
-            <MoodSlider />
+            <TrainingTracker />
           </div>
         </div>
 
